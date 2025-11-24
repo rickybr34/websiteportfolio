@@ -55,7 +55,7 @@ export const About = () => {
               I'm a passionate Computer Science student at UMass Boston
               with a focus on software development, embedded systems, and cybersecurity.
               I love how software helps us connect with people.
-              I love playing the piano and guitar in my free time with some games.
+              In my free time, I like to play the piano and guitar with some casual gaming.
             </p>
           </div>
         </div>
