@@ -1,5 +1,6 @@
 import { Github, Linkedin, Mail, Send } from 'lucide-react'
 import { useState } from 'react'
+import emailjs from '@emailjs/browser'
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
 import { MusicalNotes } from './MusicalNotes'
 
@@ -8,23 +9,77 @@ import { MusicalNotes } from './MusicalNotes'
  * 
  * Contact form section with:
  * - Name, email, and message input fields
- * - Form submission handling
+ * - Form submission handling with EmailJS
  * - Social media links (Email, LinkedIn, GitHub)
  */
 export const Contact = () => {
   const { ref, isVisible } = useIntersectionObserver({ threshold: 0.2 })
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState({ type: null, message: '' })
   const [formData, setFormData] = useState({ name: '', email: '', message: '' })
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     setIsSubmitting(true)
-    setTimeout(() => {
-      alert("Message sent! Thank you for your message. I'll get back to you soon.")
+    setSubmitStatus({ type: null, message: '' })
+
+    try {
+      // Get EmailJS configuration from environment variables
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+
+      if (!serviceId || !templateId || !publicKey) {
+        const missing = []
+        if (!serviceId) missing.push('VITE_EMAILJS_SERVICE_ID')
+        if (!templateId) missing.push('VITE_EMAILJS_TEMPLATE_ID')
+        if (!publicKey) missing.push('VITE_EMAILJS_PUBLIC_KEY')
+        throw new Error(`EmailJS configuration is missing: ${missing.join(', ')}. Please check your .env file in portfolio/client/.env`)
+      }
+
+      // Send email using EmailJS
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          message: formData.message,
+          to_email: 'rickybr34@gmail.com', // Your email address
+        },
+        publicKey
+      )
+
+      setSubmitStatus({
+        type: 'success',
+        message: "Message sent! Thank you for your message. I'll get back to you soon."
+      })
       setFormData({ name: '', email: '', message: '' })
+    } catch (error) {
+      console.error('EmailJS error:', error)
+      let errorMessage = 'Failed to send message. Please try again or contact me directly at rickybr34@gmail.com'
+      
+      // Provide more specific error messages
+      if (error.message?.includes('configuration is missing')) {
+        errorMessage = error.message
+      } else if (error.text) {
+        errorMessage = `EmailJS error: ${error.text}`
+      } else if (error.message) {
+        errorMessage = `Error: ${error.message}`
+      }
+      
+      setSubmitStatus({
+        type: 'error',
+        message: errorMessage
+      })
+    } finally {
       setIsSubmitting(false)
-    }, 1500)
+      // Clear status message after 5 seconds
+      setTimeout(() => {
+        setSubmitStatus({ type: null, message: '' })
+      }, 5000)
+    }
   }
 
   // Update form data on input change
@@ -89,6 +144,18 @@ export const Contact = () => {
               className="w-full px-0 py-4 bg-transparent text-alpine-white placeholder-alpine-white/40 border-b border-alpine-white/20 focus:outline-none focus:border-alpine-emerald resize-none transition-colors duration-300 text-lg"
             />
           </div>
+
+          {submitStatus.message && (
+            <div
+              className={`mt-4 p-4 rounded-lg text-center ${
+                submitStatus.type === 'success'
+                  ? 'bg-alpine-emerald/20 text-alpine-emerald border border-alpine-emerald/30'
+                  : 'bg-red-500/20 text-red-400 border border-red-500/30'
+              }`}
+            >
+              {submitStatus.message}
+            </div>
+          )}
 
           <div className="flex justify-center mt-auto">
             <button
