@@ -26,7 +26,7 @@ const projects = [
     description:
       'iOS app for long-distance couples with shared calendars, reminders, and mood updates.',
     tags: ['Swift', 'SwiftUI', 'iOS', 'CoreData'],
-    githubUrl: 'https://github.com/rickybr34/Luvly-App-LDR-app-WIP-',
+    githubUrl: 'https://github.com/rickybr34/Luvly-Demo',
     category: 'mobile',
   },
   {
