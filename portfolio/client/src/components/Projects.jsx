@@ -31,12 +31,12 @@ const projects = [
   },
   {
     id: 2,
-    title: 'RSA Cryptosystem Library',
+    title: 'Portfolio Website',
     description:
-      'Modular RSA encryption/decryption library with key generation and command-line utilities.',
-    tags: ['Python', 'Cryptography', 'Security'],
-    githubUrl: 'https://github.com/rickybr34/Cryptosystem',
-    category: 'security',
+      'Built and deployed a responsive portfolio website showcasing projects and technical skills.',
+    tags: ['React', 'JavaScript', 'Tailwind CSS', 'Vite', 'Framer Motion', 'Vercel'],
+    githubUrl: 'https://github.com/rickybr34/websiteportfolio',
+    category: 'web',
   },
   {
     id: 3,
