@@ -1,0 +1,13 @@
+{
+  "name": "websiteportfolio-root",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "cd portfolio && npm run dev",
+    "build": "cd portfolio && npm run build",
+    "lint": "cd portfolio && npm run lint",
+    "preview": "cd portfolio && npm run preview",
+    "install": "cd portfolio && npm install"
+  }
+}
+
