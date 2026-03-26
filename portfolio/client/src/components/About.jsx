@@ -53,10 +53,9 @@ export const About = () => {
           <div className="space-y-6 text-alpine-white/90 text-lg md:text-xl leading-relaxed">
             <p>
               I'm a Computer Science student at UMass Boston (expected December 2026) with a strong
-              interest in full-stack web and iOS development — Python, JavaScript, Swift, React, and
-              cloud tools like AWS. I like building real-world apps and I'm looking for a software
-              engineering internship to grow with a team. Outside of code, I play piano and guitar
-              and enjoy casual gaming.
+              foundation in full-stack web and iOS development. I'm skilled in Python, JavaScript,
+              Swift, React, Flask, and AWS. I'm passionate about how software connects people. Outside
+              of code, I play piano and guitar and enjoy casual gaming.
             </p>
           </div>
         </div>

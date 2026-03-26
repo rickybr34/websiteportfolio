@@ -24,7 +24,7 @@ const projects = [
     id: 1,
     title: 'Luvly',
     description:
-      'Couple connection iOS app: partner notifications, quiz games (Never Have I Ever, This or That, Who\'s More Likely To), daily questions, and anniversary countdown. MVVM with Combine and ObservableObject; topic-based quizzes, progress tracking, and secure 6-digit partner pairing.',
+      'Full-featured iOS relationship app: real-time partner notifications, interactive quiz games (Never Have I Ever, This or That, Who\'s More Likely To), daily questions, and anniversary countdown. MVVM with Combine and ObservableObject; topic-based quizzes with smart filtering, progress tracking, multi-step onboarding, and secure 6-digit partner pairing.',
     tags: ['Swift', 'SwiftUI', 'Combine', 'MVVM'],
     githubUrl: 'https://github.com/rickybr34/Luvly-Demo',
     category: 'mobile',
@@ -33,7 +33,7 @@ const projects = [
     id: 2,
     title: 'MunchMatch',
     description:
-      'Real-time iOS app for groups: shared rooms, food preferences, and Tinder-style swipes on nearby restaurants via Google Places API. Firebase Realtime Database, Auth, push notifications; targeting TestFlight with analytics for App Store readiness.',
+      'Real-time iOS app where groups create shared rooms, set food preferences, and swipe Tinder-style on nearby restaurants via Google Places API. Firebase Realtime Database for live sync, Firebase Auth, push notifications; targeting TestFlight with crash reporting and analytics ahead of App Store submission.',
     tags: ['Swift', 'SwiftUI', 'Firebase', 'Google Places API'],
     githubUrl: 'https://github.com/rickybr34/MunchMatch-showcase',
     category: 'mobile',
@@ -42,7 +42,7 @@ const projects = [
     id: 3,
     title: 'Personal Portfolio Website',
     description:
-      'Responsive portfolio with React 19 and Vite, Framer Motion animations, React Router, Vercel deploy with GitHub CI/CD, and a backend contact form with email handling.',
+      'Responsive portfolio using React 19 and Vite, with animated UI via Framer Motion and client-side routing via React Router. Deployed on Vercel with GitHub-integrated CI/CD; includes a backend contact form with email handling.',
     tags: ['React 19', 'JavaScript', 'Tailwind CSS', 'Vite', 'Framer Motion', 'Vercel'],
     githubUrl: 'https://github.com/rickybr34/websiteportfolio',
     category: 'web',
