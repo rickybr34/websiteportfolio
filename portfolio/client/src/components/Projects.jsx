@@ -1,9 +1,5 @@
-import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowRight, Github, Code2 } from 'lucide-react'
-import { MusicalNotes } from './MusicalNotes'
 
-// Animation variants for Framer Motion
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
@@ -11,214 +7,118 @@ const fadeInUp = {
 }
 
 const staggerContainer = {
-  animate: {
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
+  animate: { transition: { staggerChildren: 0.1 } },
 }
 
-// Project data - add or modify projects here
 const projects = [
   {
-    id: 1,
     title: 'Luvly',
+    kind: 'iOS',
+    status: 'Demo available',
     description:
-      'Full-featured iOS relationship app: real-time partner notifications, interactive quiz games (Never Have I Ever, This or That, Who\'s More Likely To), daily questions, and anniversary countdown. MVVM with Combine and ObservableObject; topic-based quizzes with smart filtering, progress tracking, multi-step onboarding, and secure 6-digit partner pairing.',
+      "A relationship app built around real-time partner notifications: interactive quiz games (Never Have I Ever, This or That, Who's More Likely To), daily questions, and an anniversary countdown. MVVM with Combine and ObservableObject, topic-based quizzes with smart filtering and progress tracking, multi-step onboarding, and secure 6-digit partner pairing.",
     tags: ['Swift', 'SwiftUI', 'Combine', 'MVVM'],
     githubUrl: 'https://github.com/rickybr34/Luvly-Demo',
-    category: 'mobile',
   },
   {
-    id: 2,
     title: 'MunchMatch',
+    kind: 'iOS',
+    status: 'TestFlight → App Store',
     description:
-      'Real-time iOS app where groups create shared rooms, set food preferences, and swipe Tinder-style on nearby restaurants via Google Places API. Firebase Realtime Database for live sync, Firebase Auth, push notifications; targeting TestFlight with crash reporting and analytics ahead of App Store submission.',
+      'Groups create a shared room, set food preferences, and swipe on nearby restaurants pulled from the Google Places API. Firebase Realtime Database keeps every member in sync live, with Firebase Auth and push notifications. Currently heading to TestFlight with crash reporting and analytics in place ahead of App Store submission.',
     tags: ['Swift', 'SwiftUI', 'Firebase', 'Google Places API'],
     githubUrl: 'https://github.com/rickybr34/MunchMatch-showcase',
-    category: 'mobile',
   },
   {
-    id: 3,
-    title: 'Personal Portfolio Website',
+    title: 'Portfolio Website',
+    kind: 'WEB',
+    status: 'Live on Vercel',
     description:
-      'Responsive portfolio using React 19 and Vite, with animated UI via Framer Motion and client-side routing via React Router. Deployed on Vercel with GitHub-integrated CI/CD; includes a backend contact form with email handling.',
-    tags: ['React 19', 'JavaScript', 'Tailwind CSS', 'Vite', 'Framer Motion', 'Vercel'],
+      'A responsive portfolio in React 19 and Vite, animated with Framer Motion and routed client-side with React Router. Deployed on Vercel with GitHub-integrated CI/CD, plus a backend contact form with email handling.',
+    tags: ['React 19', 'Tailwind CSS', 'Vite', 'Framer Motion', 'Vercel'],
     githubUrl: 'https://github.com/rickybr34/websiteportfolio',
-    category: 'web',
   },
 ]
 
-// Available filter categories
-const categories = ['all', 'embedded', 'web', 'mobile', 'security']
-
-/**
- * Projects Component
- * 
- * Displays a grid of project cards with:
- * - Category filtering functionality
- * - Animated card hover effects
- * - GitHub links for each project
- */
-export const Projects = () => {
-  const [activeFilter, setActiveFilter] = useState('all')
-
-  // Filter projects based on selected category
-  const filteredProjects = projects.filter(
-    (project) => activeFilter === 'all' || project.category === activeFilter
-  )
-
-  return (
-    <motion.section
-      id="projects"
-      className="pt-36 pb-40 px-4 relative min-h-screen flex flex-col items-center justify-center"
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
+export const Projects = () => (
+  <section id="work" className="mx-auto max-w-[1040px] px-8 pb-10 pt-[110px]">
+    <motion.p
+      variants={fadeInUp}
+      initial="initial"
+      whileInView="animate"
       viewport={{ once: true }}
-      transition={{ duration: 0.6 }}
+      className="font-mono mb-[18px] text-[11px] tracking-[0.22em] text-alpine-bright"
     >
-      <div className="absolute inset-0 bg-gradient-to-b from-alpine-deep/80 via-alpine-deep/60 to-alpine-deep/80 pointer-events-none" />
-      <MusicalNotes />
+      01 — SELECTED WORK
+    </motion.p>
+    <motion.h2
+      variants={fadeInUp}
+      initial="initial"
+      whileInView="animate"
+      viewport={{ once: true }}
+      className="mb-[60px] max-w-[640px] font-bold tracking-[-0.03em]"
+      style={{ fontSize: 'clamp(30px, 4vw, 48px)' }}
+    >
+      Three projects, taken all the way to shipped.
+    </motion.h2>
 
-      <div className="container mx-auto max-w-5xl relative z-10 flex flex-col items-center min-h-[calc(100vh-200px)] justify-between">
-        <motion.h2
+    <motion.div
+      className="flex flex-col gap-[22px]"
+      variants={staggerContainer}
+      initial="initial"
+      whileInView="animate"
+      viewport={{ once: true }}
+    >
+      {projects.map((project) => (
+        <motion.article
+          key={project.title}
           variants={fadeInUp}
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true }}
-          className="text-3xl md:text-4xl font-bold mb-6 text-center"
+          whileHover={{ y: -3 }}
+          transition={{ duration: 0.25 }}
+          className="rounded-[14px] border border-alpine-emerald/20 p-[34px] transition-colors duration-250 hover:border-alpine-bright/50"
+          style={{ background: 'linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.012))' }}
         >
-          Featured{' '}
-          <span className="bg-gradient-to-r from-alpine-white to-alpine-emerald bg-clip-text text-transparent">
-            Projects
-          </span>
-        </motion.h2>
-
-        <motion.p
-          variants={fadeInUp}
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true }}
-          className="text-center text-alpine-white/70 mb-12 max-w-2xl"
-        >
-          Recent work, and things I'm working on.
-        </motion.p>
-
-        <motion.div
-          className="flex flex-wrap justify-center gap-3 mb-16"
-          variants={fadeInUp}
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true }}
-          role="group"
-          aria-label="Filter projects"
-        >
-          {categories.map((category) => (
-            <button
-              key={category}
-              onClick={() => setActiveFilter(category)}
-              className={`
-                min-w-[100px] px-8 py-3 rounded-full text-base font-medium transition-all duration-300
-                capitalize border-2 text-center
-                ${
-                  activeFilter === category
-                    ? 'bg-alpine-emerald text-white border-alpine-emerald'
-                    : 'bg-white/5 text-alpine-white/70 border-alpine-emerald/20 hover:bg-alpine-emerald/10 hover:text-alpine-emerald hover:border-alpine-emerald/40'
-                }
-              `}
-            >
-              {category}
-            </button>
-          ))}
-        </motion.div>
-
-        {filteredProjects.length === 0 ? (
-          <motion.p
-            variants={fadeInUp}
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-            className="text-center text-alpine-white/70"
-          >
-            No projects matched this filter just yet — check back soon!
-          </motion.p>
-        ) : (
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-            variants={staggerContainer}
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-            key={activeFilter}
-          >
-            {filteredProjects.map((project) => (
-              <motion.div
-                key={project.id}
-                className="backdrop-blur-md bg-white/5 border border-alpine-emerald/10 rounded-lg overflow-hidden shadow-xl shadow-black/50 p-6 flex flex-col"
-                variants={fadeInUp}
-                whileHover={{ y: -10, transition: { duration: 0.2 } }}
+          <div className="mb-5 flex flex-wrap items-baseline gap-3.5">
+            <h3 className="text-[27px] font-bold tracking-[-0.02em]">{project.title}</h3>
+            <span className="font-mono rounded-full border border-alpine-bright/30 px-2.5 py-1 text-[10px] tracking-[0.16em] text-alpine-bright">
+              {project.kind}
+            </span>
+            <span className="text-[13px] text-alpine-white/42">{project.status}</span>
+          </div>
+          <p className="mb-5 max-w-[760px] text-base leading-[1.62] text-alpine-white/72">
+            {project.description}
+          </p>
+          <div className="mb-5 flex flex-wrap gap-2.5">
+            {project.tags.map((tag) => (
+              <span
+                key={tag}
+                className="font-mono rounded-full bg-alpine-emerald/14 px-3 py-1.5 text-[11px] text-alpine-bright"
               >
-                <motion.div
-                  className="h-48 w-full rounded-lg overflow-hidden mb-4 bg-gradient-to-br from-alpine-emerald/20 to-alpine-emerald/5 flex items-center justify-center border border-alpine-emerald/20"
-                  whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
-                >
-                  <Code2 size={64} className="text-alpine-emerald/60" strokeWidth={1.5} />
-                </motion.div>
-
-                <div style={{ padding: '0 0.5rem' }} className="flex flex-col flex-1">
-                  <h3 className="text-xl font-semibold mb-2 text-alpine-white">
-                    {project.title}
-                  </h3>
-
-                  <p className="text-alpine-white/70 text-xs mb-6 flex-1">
-                    {project.description}
-                  </p>
-
-                  <div className="project-tech flex flex-wrap gap-3" style={{ marginBottom: 'calc(1.5rem + 0.5px)' }}>
-                    {project.tags.map((tag, index) => (
-                      <span
-                        key={index}
-                        className="bg-alpine-emerald/10 text-alpine-emerald rounded-full px-4 py-1.5 text-sm font-semibold min-w-[80px] text-center inline-block"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="flex space-x-3 mt-auto pt-4 pb-2">
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[#4CAF50] hover:text-[#4CAF50] transition-colors duration-300"
-                      aria-label={`View ${project.title} on GitHub`}
-                    >
-                      <Github size={30} />
-                    </a>
-                  </div>
-                </div>
-              </motion.div>
+                {tag}
+              </span>
             ))}
-          </motion.div>
-        )}
-
-        <motion.div
-          className="text-center mt-auto pt-16"
-          variants={fadeInUp}
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true }}
-        >
+          </div>
           <a
-            className="cosmic-button w-fit flex items-center mx-auto gap-2"
+            href={project.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            href="https://github.com/rickybr34"
+            className="font-mono text-xs tracking-[0.1em] text-alpine-bright hover:text-alpine-white"
           >
-            Check My Github <ArrowRight size={16} />
+            VIEW ON GITHUB →
           </a>
-        </motion.div>
-      </div>
-    </motion.section>
-  )
-}
+        </motion.article>
+      ))}
+    </motion.div>
+
+    <div className="mt-[34px]">
+      <a
+        href="https://github.com/rickybr34"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="font-mono text-xs tracking-[0.12em] text-alpine-white/55 hover:text-alpine-bright"
+      >
+        ALL REPOSITORIES →
+      </a>
+    </div>
+  </section>
+)
