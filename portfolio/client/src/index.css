@@ -4,7 +4,11 @@
   --color-alpine-dark: #0b2d1f;
   --color-alpine-deep: #0a0a0a;
   --color-alpine-emerald: #167a50;
+  --color-alpine-bright: #3ec98c;
   --color-alpine-white: #f2f2f2;
+
+  --font-sans: 'Space Grotesk', -apple-system, 'Helvetica Neue', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
 
   --animate-float: float 6s ease-in-out infinite;
   --animate-pulse-subtle: pulse-subtle 4s ease-in-out infinite;
@@ -13,6 +17,10 @@
   --animate-fade-in-delay-2: fade-in 0.7s ease-out 0.4s forwards;
   --animate-fade-in-delay-3: fade-in 0.7s ease-out 0.6s forwards;
   --animate-fade-in-delay-4: fade-in 0.7s ease-out 0.8s forwards;
+  --animate-rise-in: rise-in 0.8s ease-out both;
+  --animate-bar-pulse: bar-pulse 1.9s ease-in-out infinite;
+  --animate-slab-float: slab-float 6s ease-in-out infinite;
+  --animate-screen-glow: screen-glow 4.4s ease-in-out infinite;
 }
 
 :root {
@@ -22,10 +30,15 @@
   --alpine-white: #f2f2f2;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* Layered so it sits below (and is overridable by) Tailwind's utility
+   classes — an unlayered reset would otherwise beat every margin/padding
+   utility regardless of specificity, per the CSS cascade layers spec. */
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 }
 
 html {
@@ -33,9 +46,7 @@ html {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--alpine-deep);
@@ -71,20 +82,43 @@ body {
   }
 }
 
-@keyframes float-note {
-  0% {
-    transform: translateY(0) rotate(0deg);
+@keyframes rise-in {
+  from {
     opacity: 0;
+    transform: translateY(14px);
   }
-  10% {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes bar-pulse {
+  0%, 100% {
+    transform: scaleY(0.35);
+    opacity: 0.55;
+  }
+  50% {
+    transform: scaleY(1);
     opacity: 1;
   }
-  90% {
-    opacity: 1;
+}
+
+@keyframes slab-float {
+  0%, 100% {
+    transform: translateY(-8px);
   }
-  100% {
-    transform: translateY(-100vh) rotate(360deg);
-    opacity: 0;
+  50% {
+    transform: translateY(10px);
+  }
+}
+
+@keyframes screen-glow {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.95;
   }
 }
 
@@ -112,10 +146,6 @@ body {
   animation: float 6s ease-in-out infinite;
 }
 
-.animate-float-note {
-  animation: float-note 15s linear infinite;
-}
-
 .animate-pulse-subtle {
   animation: pulse-subtle 4s ease-in-out infinite;
 }
@@ -138,6 +168,22 @@ body {
 
 .animate-fade-in-delay-4 {
   animation: fade-in 0.7s ease-out 0.8s forwards;
+}
+
+.animate-rise-in {
+  animation: rise-in 0.8s ease-out both;
+}
+
+.animate-bar-pulse {
+  animation: bar-pulse 1.9s ease-in-out infinite;
+}
+
+.animate-slab-float {
+  animation: slab-float 6s ease-in-out infinite;
+}
+
+.animate-screen-glow {
+  animation: screen-glow 4.4s ease-in-out infinite;
 }
 
 /* Cosmic Button Style */

@@ -1,72 +1,81 @@
-import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
-import { MusicalNotes } from './MusicalNotes'
-import { ArrowRight } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { SpotifyNowPlaying } from './SpotifyNowPlaying'
 
-/**
- * About Component
- * 
- * About section displaying:
- * - Personal introduction
- * - Profile emoji/avatar
- * - Resume download button
- */
-export const About = () => {
-  const { ref, isVisible } = useIntersectionObserver({ threshold: 0.2 })
-
-  // Handle resume PDF download
-  const handleResumeDownload = () => {
-    const link = document.createElement('a')
-    link.href = '/Ricardo_Brutus_Resume_2026.pdf'
-    link.download = 'Ricardo_Brutus_Resume_2026.pdf'
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
-  }
-
-  return (
-    <section
-      id="about"
-      className="relative min-h-screen flex flex-col items-center justify-center px-4 md:px-8 py-20 overflow-hidden"
-    >
-      <div className="absolute inset-0 bg-gradient-to-b from-alpine-deep/80 via-alpine-deep/60 to-alpine-deep/80 pointer-events-none" />
-      <MusicalNotes />
-
-      <div
-        ref={ref}
-        className={`
-          relative z-10 w-full max-w-6xl mx-auto text-center transition-all duration-700 ease-out
-          flex flex-col items-center justify-center
-          ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
-        `}
-      >
-        <div className="w-full max-w-4xl mx-auto mb-16 md:mb-20">
-          <h2 className="text-3xl md:text-5xl font-bold mb-8 bg-gradient-to-r from-alpine-white to-alpine-emerald bg-clip-text text-transparent">
-            About Me
-          </h2>
-
-          <div className="mb-8 flex justify-center">
-            <div className="w-32 h-32 md:w-40 md:h-40 rounded-full bg-gradient-to-br from-alpine-emerald/30 to-alpine-emerald/10 border-4 border-alpine-emerald/30 flex items-center justify-center backdrop-blur-sm">
-              <span className="text-5xl md:text-6xl">👨🏾‍💻</span>
-            </div>
-          </div>
-
-          <div className="space-y-6 text-alpine-white/90 text-lg md:text-xl leading-relaxed">
-            <p>
-              I'm a Computer Science student at UMass Boston (expected December 2026) with a strong
-              foundation in full-stack web and iOS development. I'm skilled in Python, JavaScript,
-              Swift, React, Flask, and AWS. I'm passionate about how software connects people. Outside
-              of code, I play piano and guitar and enjoy casual gaming.
-            </p>
-          </div>
-        </div>
-
-        <button
-          onClick={handleResumeDownload}
-          className="cosmic-button w-fit flex items-center mx-auto gap-2"
-        >
-          Download Resume <ArrowRight size={16} />
-        </button>
-      </div>
-    </section>
-  )
+const fadeInUp = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.6 },
 }
+
+const facts = [
+  { label: 'EDUCATION', value: 'BS Computer Science, UMass Boston — May 2027' },
+  { label: 'MOBILE', value: 'Swift, SwiftUI, Combine, MVVM, Firebase, push notifications' },
+  { label: 'WEB & CLOUD', value: 'Python, JavaScript, React, Flask, AWS' },
+  { label: 'MUSIC', value: 'Piano and guitar' },
+]
+
+export const About = () => (
+  <section id="about" className="mx-auto max-w-[1040px] px-8 py-[110px]">
+    <motion.p
+      variants={fadeInUp}
+      initial="initial"
+      whileInView="animate"
+      viewport={{ once: true }}
+      className="font-mono mb-[18px] text-[11px] tracking-[0.22em] text-alpine-bright"
+    >
+      02 — ABOUT
+    </motion.p>
+
+    <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-start gap-14">
+      <motion.div
+        variants={fadeInUp}
+        initial="initial"
+        whileInView="animate"
+        viewport={{ once: true }}
+      >
+        <h2
+          className="mb-7 font-bold leading-[1.1] tracking-[-0.03em]"
+          style={{ fontSize: 'clamp(28px, 3.4vw, 42px)' }}
+        >
+          Software is how people reach each other.
+        </h2>
+        <div className="flex flex-col gap-5 text-[17px] leading-[1.66] text-alpine-white/72">
+          <p>
+            I'm a Computer Science student at UMass Boston, graduating May
+            2027, with a foundation in full-stack web and iOS development. I
+            work in Python, JavaScript, Swift, React, Flask, and AWS.
+          </p>
+          <p>
+            Outside of code I play piano and guitar, and I game casually.
+            Music really drives me and shows up a lot in my work.
+          </p>
+        </div>
+        <a
+          href="/Ricardo_Brutus_Resume_2026.pdf"
+          download="Ricardo_Brutus_Resume_2026.pdf"
+          className="cosmic-button mt-[34px] inline-block"
+        >
+          Download résumé
+        </a>
+      </motion.div>
+
+      <motion.div
+        variants={fadeInUp}
+        initial="initial"
+        whileInView="animate"
+        viewport={{ once: true }}
+        className="flex flex-col gap-px overflow-hidden rounded-[14px] border border-alpine-emerald/20"
+      >
+        {facts.map((fact) => (
+          <div key={fact.label} className="grid grid-cols-[108px_minmax(0,1fr)] gap-4.5 bg-white/[0.022] px-6 py-5">
+            <p className="font-mono pt-1 text-[10px] tracking-[0.16em] text-alpine-white/40">
+              {fact.label}
+            </p>
+            <p className="text-[15px] leading-normal text-alpine-white/88">{fact.value}</p>
+          </div>
+        ))}
+        <SpotifyNowPlaying />
+      </motion.div>
+    </div>
+  </section>
+)
