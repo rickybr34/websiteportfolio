@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion'
-import { SpotifyNowPlaying } from './SpotifyNowPlaying'
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -74,7 +73,6 @@ export const About = () => (
             <p className="text-[15px] leading-normal text-alpine-white/88">{fact.value}</p>
           </div>
         ))}
-        <SpotifyNowPlaying />
       </motion.div>
     </div>
   </section>

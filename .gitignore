@@ -61,4 +61,9 @@ coverage
 .cache
 *.cache
 
+# Spotify integration (kept local, not tracked)
+SPOTIFY_SETUP.md
+api/spotify-now-playing.js
+portfolio/client/src/components/SpotifyNowPlaying.jsx
+
 
